@@ -3,7 +3,6 @@
 InstallDeps <- R6Class(
   "InstallDeps",
   inherit = TicStep,
-
   public = list(
     initialize = function(repos = repo_default(),
                           type = getOption("pkgType"),
@@ -12,22 +11,24 @@ InstallDeps <- R6Class(
       private$type <- type
       private$dependencies <- dependencies
     },
-
     prepare = function() {
       verify_install("remotes")
     },
-
     run = function() {
-      remotes::install_deps(
-        dependencies = private$dependencies,
-        repos = private$repos,
-        type = private$type,
-        build = FALSE,
-        INSTALL_OPTS = "--no-multiarch"
-      )
+      # pak::pkg_install(
+      #   pkg = private$dependencies,
+      #   ask = FALSE
+      # )
+      pak::local_install_dev_deps(ask = FALSE)
+      # remotes::install_deps(
+      #   dependencies = private$dependencies,
+      #   repos = private$repos,
+      #   type = private$type,
+      #   build = FALSE,
+      #   INSTALL_OPTS = "--no-multiarch"
+      # )
     }
   ),
-
   private = list(
     repos = NULL,
     type = NULL,
@@ -78,7 +79,6 @@ step_install_deps <- function(repos = repo_default(),
 InstallCRAN <- R6Class(
   "InstallCRAN",
   inherit = TicStep,
-
   public = list(
     initialize = function(package, ...) {
       stopifnot(length(package) == 1)
@@ -129,7 +129,6 @@ step_install_cran <- function(package = NULL, ...,
 InstallGitHub <- R6Class(
   "InstallGitHub",
   inherit = TicStep,
-
   public = list(
     initialize = function(repo, ...) {
       private$repo <- repo
