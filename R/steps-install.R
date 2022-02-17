@@ -19,7 +19,7 @@ InstallDeps <- R6Class(
       #   pkg = private$dependencies,
       #   ask = FALSE
       # )
-      pak::local_install_dev_deps(ask = FALSE)
+      pak::pkg_install(private$dependencies, ask = FALSE)
       # remotes::install_deps(
       #   dependencies = private$dependencies,
       #   repos = private$repos,
