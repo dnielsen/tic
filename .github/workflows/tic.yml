@@ -101,17 +101,17 @@ jobs:
 
       # Try to automatically check for system dependencies and install them
       # Note: this might not catch all required system libs and manual action might be needed
-      - name: "[Stage] [Linux] Install linux system dependencies"
-        if: runner.os == 'Linux'
-        run: |
-          while read -r cmd
-          do
-            eval sudo $cmd
-          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-
-      - name: "[Stage] Install"
-        if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
-        run: Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel/')" -e "pak::pkg_install('ropensci/tic')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+      # - name: "[Stage] [Linux] Install linux system dependencies"
+      #   if: runner.os == 'Linux'
+      #   run: |
+      #     while read -r cmd
+      #     do
+      #       eval sudo $cmd
+      #     done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+      #
+      # - name: "[Stage] Install"
+      #   if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
+      #   run: Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel/')" -e "pak::pkg_install('ropensci/tic', repos = 'https://packagemanager.rstudio.com/cran/__linux__/focal/latest')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       # macOS devel needs its own stage because we need to work with an option to suppress the usage of binaries
       - name: "[Stage] Prepare & Install (macOS-devel)"
