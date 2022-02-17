@@ -1,25 +1,25 @@
-test_that("integration test: package", {
-  cli::cat_boxx("integration test: package")
-
-  package_path <- tempfile("ticpkg", fileext = "pkg")
-
-  cat("\n")
-  git2r::clone("https://github.com/pat-s/oddsratio.git", package_path)
-  withr::with_dir(
-    package_path,
-    {
-      writeLines("do_package_checks()", "tic.R")
-      writeLines("^tic\\.R$", ".Rbuildignore")
-      callr::r(
-        function() {
-          tic::run_all_stages()
-        },
-        show = TRUE,
-        env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
-      )
-    }
-  )
-
-  # This is an integration test, we're good if we have reached this point.
-  expect_true(TRUE)
-})
+# test_that("integration test: package", {
+#   cli::cat_boxx("integration test: package")
+#
+#   package_path <- tempfile("ticpkg", fileext = "pkg")
+#
+#   cat("\n")
+#   git2r::clone("https://github.com/pat-s/oddsratio.git", package_path)
+#   withr::with_dir(
+#     package_path,
+#     {
+#       writeLines("do_package_checks()", "tic.R")
+#       writeLines("^tic\\.R$", ".Rbuildignore")
+#       callr::r(
+#         function() {
+#           tic::run_all_stages()
+#         },
+#         show = TRUE,
+#         env = c(callr::rcmd_safe_env(), TIC_LOCAL = "true")
+#       )
+#     }
+#   )
+#
+#   # This is an integration test, we're good if we have reached this point.
+#   expect_true(TRUE)
+# })
