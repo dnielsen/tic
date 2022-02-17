@@ -15,12 +15,13 @@ InstallDeps <- R6Class(
       verify_install("pak")
     },
     run = function() {
+      pak::local_install_dev_deps(ask = FALSE)
       # pak::pkg_install(
       #   pkg = private$dependencies,
       #   ask = FALSE
       # )
-      print(private$dependencies)
-      pak::pkg_install(private$dependencies, ask = FALSE)
+      # print(private$dependencies)
+      # pak::pkg_install(private$dependencies, ask = FALSE)
       # remotes::install_deps(
       #   dependencies = private$dependencies,
       #   repos = private$repos,
