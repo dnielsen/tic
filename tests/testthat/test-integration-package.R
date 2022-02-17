@@ -1,14 +1,13 @@
-context("test-integration-package.R")
-
 test_that("integration test: package", {
   cli::cat_boxx("integration test: package")
 
   package_path <- tempfile("ticpkg", fileext = "pkg")
 
   cat("\n")
-  usethis::create_package(
-    package_path,
-    fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE
+  usethis::create_from_github(
+    "pat-s/oddsratio",
+    destdir = package_path,
+    rstudio = FALSE
   )
   withr::with_dir(
     package_path,
