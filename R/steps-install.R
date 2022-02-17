@@ -12,7 +12,7 @@ InstallDeps <- R6Class(
       private$dependencies <- dependencies
     },
     prepare = function() {
-      verify_install("remotes")
+      verify_install("pak")
     },
     run = function() {
       # pak::pkg_install(
@@ -58,6 +58,7 @@ InstallDeps <- R6Class(
 #'   installation from source on Windows and macOS by passing
 #'   \code{\link{.Platform}$pkgType}.
 #' @inheritParams remotes::install_deps
+#' @importFrom pak local_install_dev_deps pkg_install
 #' @family steps
 #' @export
 #' @name step_install_pkg
