@@ -4,10 +4,7 @@ test_that("integration test: package failure", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
 
   cat("\n")
-  usethis::create_package(
-    package_path,
-    fields = list(License = "GPL-2"), rstudio = FALSE, open = FALSE
-  )
+  git2r::clone("https://github.com/pat-s/oddsratio.git", package_path)
   withr::with_envvar(c("R_USER_CACHE_DIR" = tempfile()), {
     withr::with_dir(
       package_path,

@@ -4,11 +4,7 @@ test_that("integration test: package", {
   package_path <- tempfile("ticpkg", fileext = "pkg")
 
   cat("\n")
-  usethis::create_from_github(
-    "pat-s/oddsratio",
-    destdir = package_path,
-    rstudio = FALSE
-  )
+  git2r::clone("https://github.com/pat-s/oddsratio.git", package_path)
   withr::with_dir(
     package_path,
     {
