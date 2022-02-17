@@ -77,8 +77,8 @@ jobs:
           key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}-1
           restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}-1
 
-      - name: "[Stage] [Linux] Install required system libs"
-        if: runner.os == 'Linux'
+      - name: "[Stage] [Linux-R-devel] Install required system libs"
+        if: runner.os == 'Linux' && matrix.config.r == 'devel'
         run: sudo apt install libcurl4-openssl-dev libgit2-dev
 
       # for some strange Windows reason this step and the next one need to be decoupled
@@ -109,9 +109,9 @@ jobs:
       #       eval sudo $cmd
       #     done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
       #
-      # - name: "[Stage] Install"
-      #   if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
-      #   run: Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel/')" -e "pak::pkg_install('ropensci/tic', repos = 'https://packagemanager.rstudio.com/cran/__linux__/focal/latest')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
+      - name: "[Stage] Install"
+        if: matrix.config.os != 'macOS-latest' || matrix.config.r != 'devel'
+        run: Rscript -e "install.packages('pak', repos = 'https://r-lib.github.io/p/pak/devel/')" -e "pak::pkg_install('ropensci/tic', repos = 'https://packagemanager.rstudio.com/cran/__linux__/focal/latest')" -e "print(tic::dsl_load())" -e "tic::prepare_all_stages()" -e "tic::before_install()" -e "tic::install()"
 
       # macOS devel needs its own stage because we need to work with an option to suppress the usage of binaries
       - name: "[Stage] Prepare & Install (macOS-devel)"
