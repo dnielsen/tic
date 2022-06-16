@@ -45,6 +45,3 @@ workflows:
   build-and-deploy:
     jobs:
       - r-release
-
-    jobs:
-      - r-release
