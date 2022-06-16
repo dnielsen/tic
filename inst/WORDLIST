@@ -223,6 +223,7 @@ osgeo
 osx
 OutFile
 packagedocs
+packagemanager
 pandoc
 patrick
 phracker
@@ -274,6 +275,7 @@ RSA
 rsconnect
 Rscript
 rstats
+rstudio
 RStudio's
 rtools
 runtimePlatform

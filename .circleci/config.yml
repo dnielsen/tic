@@ -22,8 +22,7 @@ jobs:
           name: "[r-release] Install dependencies"
           command: |
             sudo apt update && sudo apt install -y libgit2-dev
-            # echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"))); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
 
@@ -84,8 +83,7 @@ jobs:
           name: "[r-oldrelease] Install dependencies"
           command: |
             sudo apt update && sudo apt install -y libgit2-dev
-            # echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
+            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"))); print(tic::dsl_load()); tic::prepare_all_stages()'
             R -q -e 'tic::before_install()'
             R -q -e 'tic::install()'
 
