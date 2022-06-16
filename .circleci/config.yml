@@ -6,7 +6,8 @@ jobs:
     # r-release-env
     environment:
     docker:
-      - image: cimg/rlang:4.1.3
+      # - image: cimg/rlang:4.1.3
+      - image: rocker/verse:4
     steps:
       - checkout
 
