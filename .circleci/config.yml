@@ -24,12 +24,14 @@ jobs:
             sudo apt update && sudo apt install -y libgit2-dev
             echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/latest")))' > $HOME/.Rprofile
             echo -e 'options(download.file.extra = sprintf("--header \"User-Agent: R (%s)\"", paste(getRversion(), R.version["platform"], R.version["arch"], R.version["os"])))' >> $HOME/.Rprofile
-            curl -H "User-Agent: R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu)" -I https://packagemanager.rstudio.com/cran/__linux__/focal/latest/src/contrib/A3_1.0.0.tar.gz
-            R -q -e 'getOption("pkgType")'
-            R -q -e 'install.packages("tidyverse")'
-            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"))); print(tic::dsl_load()); tic::prepare_all_stages()'
-            R -q -e 'tic::before_install()'
-            R -q -e 'tic::install()'
+            lsb_release -a
+            R -q -e 'install.packages("brew")'
+            # curl -H "User-Agent: R (4.2.0 x86_64-pc-linux-gnu x86_64 linux-gnu)" -I https://packagemanager.rstudio.com/cran/__linux__/focal/latest/src/contrib/A3_1.0.0.tar.gz
+            # R -q -e 'getOption("pkgType")'
+            # R -q -e 'install.packages("tidyverse")'
+            # R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"))); print(tic::dsl_load()); tic::prepare_all_stages()'
+            # R -q -e 'tic::before_install()'
+            # R -q -e 'tic::install()'
 
       - run:
           name: "[r-release] R CMD Check"
