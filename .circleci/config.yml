@@ -6,7 +6,7 @@ jobs:
     # r-release-env
     environment:
     docker:
-      - image: rocker/verse
+      - image: cimg/rlang:4.2.0
     steps:
       - checkout
 
@@ -39,36 +39,36 @@ jobs:
           key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
           paths:
             - /usr/local/lib/R/site-library
-  deploy:
-    # r-deploy-env
-    environment:
-      # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
-      # capitalized term. This also might need to be done in tic.R
-      BUILD_PKGDOWN: true
-    docker:
-      - image: rocker/verse
-    steps:
-      - checkout
+  # deploy:
+  #   # r-deploy-env
+  #   environment:
+  #     # if you use bookdown or blogdown, replace "PKGDOWN" by the respective
+  #     # capitalized term. This also might need to be done in tic.R
+  #     BUILD_PKGDOWN: true
+  #   docker:
+  #     - image: rocker/verse
+  #   steps:
+  #     - checkout
 
-      - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
-      - restore_cache:
-          key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
+  #     - run: echo "$(date '+%d-%m')-r-release" > /tmp/_tmp_file
+  #     - restore_cache:
+  #         key: R-package-library-{{ checksum "/tmp/_tmp_file" }}
 
-      - run:
-          name: Deploy
-          command: |
-            sudo apt update && sudo apt install -y libgit2-dev
-            echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
-            R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
-            R -q -e 'tic::before_deploy()'
-            R -q -e 'tic::deploy()'
-            R -q -e 'tic::after_deploy()'
+  #     - run:
+  #         name: Deploy
+  #         command: |
+  #           sudo apt update && sudo apt install -y libgit2-dev
+  #           echo -e 'options(Ncpus = 4, repos = structure(c(CRAN = "https://cloud.r-project.org/")))' > $HOME/.Rprofile
+  #           R -q -e 'install.packages("tic", repos = structure(c(ropensci = "https://ropensci.r-universe.dev", CRAN = "https://cloud.r-project.org"))); print(tic::dsl_load()); tic::prepare_all_stages()'
+  #           R -q -e 'tic::before_deploy()'
+  #           R -q -e 'tic::deploy()'
+  #           R -q -e 'tic::after_deploy()'
 
   r-oldrelease:
     # r-oldrelease-env
     environment:
     docker:
-      - image: rocker/verse:3.6.3
+      - image: cimg/rlang:4.2.0
     steps:
       - checkout
 
