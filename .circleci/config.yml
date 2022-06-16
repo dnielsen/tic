@@ -107,9 +107,9 @@ workflows:
     jobs:
       - r-release
       - r-oldrelease
-      - deploy:
-          requires:
-            - r-release
+      # - deploy:
+      #     requires:
+      #       - r-release
 
   # CRON job daily at 4 am in the morning
   # - runs the "build" job on the master branch and builds package cache
