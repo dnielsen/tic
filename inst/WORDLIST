@@ -130,6 +130,7 @@ Homebrew
 href
 http
 https
+HTTPUserAgent
 hugo
 hyperthreading
 img
@@ -205,6 +206,7 @@ nhash
 nlopt
 NOHASHDIR
 nojekyll
+noptions
 noreply
 nsloppiness
 NUM
@@ -298,6 +300,7 @@ SoftwareSourceCode
 softwareSuggestions
 spdx
 specfic
+sprintf
 stringr
 subclasses
 subsequential
