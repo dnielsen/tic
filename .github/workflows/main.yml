@@ -6,7 +6,7 @@ on:
     branches:
     - main
     - master
-    - pak2
+    - compare
   pull_request:
     branches:
     - main
@@ -29,10 +29,10 @@ jobs:
       matrix:
         config:
           # use a different tic template type if you do not want to build on all listed platforms
-          - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
+          # - { os: windows-latest, r: "release" }
+          # - { os: macOS-latest, r: "release", pkgdown: "true", latex: "true" }
           # - { os: macOS-latest, r: "devel" }
-          - { os: ubuntu-latest, r: "devel", pkgdown: "true" }
+          # - { os: ubuntu-latest, r: "devel", pkgdown: "true" }
           - { os: ubuntu-latest, r: "release" }
 
     env:
@@ -66,18 +66,18 @@ jobs:
       # set date/week for use in cache creation
       # https://github.community/t5/GitHub-Actions/How-to-set-and-access-a-Workflow-variable/m-p/42970
       # - cache R packages daily
-      - name: "[Cache] Prepare daily timestamp for cache"
-        if: runner.os != 'Windows'
-        id: date
-        run: echo "::set-output name=date::$(date '+%d-%m')"
+      # - name: "[Cache] Prepare daily timestamp for cache"
+      #   if: runner.os != 'Windows'
+      #   id: date
+      #   run: echo "::set-output name=date::$(date '+%d-%m')"
 
-      - name: "[Cache] Cache R packages"
-        if: runner.os != 'Windows'
-        uses: pat-s/always-upload-cache@v3
-        with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
-          restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+      # - name: "[Cache] Cache R packages"
+      #   if: runner.os != 'Windows'
+      #   uses: pat-s/always-upload-cache@v3
+      #   with:
+      #     path: ${{ env.R_LIBS_USER }}
+      #     key: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
+      #     restore-keys: ${{ runner.os }}-r-${{ matrix.config.r }}-${{steps.date.outputs.date}}
 
       - name: "[Stage] Install pak"
         run: |
@@ -101,9 +101,3 @@ jobs:
       - name: "[Stage] Before Deploy"
         run: |
           Rscript -e "tic::before_deploy()"
-
-      - name: "[Stage] Deploy"
-        run: Rscript -e "tic::deploy()"
-
-      - name: "[Stage] After Deploy"
-        run: Rscript -e "tic::after_deploy()"
